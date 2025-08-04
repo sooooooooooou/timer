@@ -1,297 +1,319 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>予定カウントダウン</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #1a1a1a;
-            color: #ffffff;
-            padding: 24px;
-            min-height: 100vh;
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 380px;
-            margin: 0 auto;
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 32px;
-        }
-
-        .title {
-            font-size: 18px;
-            font-weight: 500;
-            color: #ffffff;
-        }
-
-        .add-btn {
-            width: 28px;
-            height: 28px;
-            background: #000000;
-            border: 1px solid #ffffff;
-            border-radius: 50%;
-            color: #ffffff;
-            font-size: 16px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-        }
-
-        .add-btn:hover {
-            background: #333333;
-            transform: scale(1.05);
-        }
-
-        .event {
-            background: #000000;
-            border: 1px solid #333333;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 16px;
-            color: #ffffff;
-        }
-
-        .event-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-        }
-
-        .event-name-display {
-            font-size: 16px;
-            font-weight: 500;
-            color: #ffffff;
-        }
-
-        .delete-btn {
-            background: none;
-            border: none;
-            color: #666666;
-            font-size: 14px;
-            cursor: pointer;
-            padding: 4px 8px;
-            border-radius: 4px;
-            transition: all 0.2s ease;
-        }
-
-        .delete-btn:hover {
-            background: #333333;
-            color: #ffffff;
-        }
-
-        .event-inputs {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 8px;
-            margin-bottom: 16px;
-        }
-
-        .input-row {
-            display: grid;
-            grid-template-columns: 1fr 100px 70px;
-            gap: 8px;
-        }
-
-        .input {
-            background: #000000;
-            border: 1px solid #333333;
-            border-radius: 4px;
-            padding: 8px 12px;
-            font-size: 14px;
-            color: #ffffff;
-            transition: all 0.2s ease;
-        }
-
-        .input:focus {
-            outline: none;
-            border-color: #666666;
-            background: #000000;
-        }
-
-        .countdown {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            text-align: center;
-        }
-
-        .countdown-item {
-            padding: 12px 8px;
-            background: #000000;
-            border: 1px solid #333333;
-            border-radius: 6px;
-        }
-
-        .countdown-number {
-            font-size: 20px;
-            font-weight: 600;
-            color: #ffffff;
-            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
-        }
-
-        .countdown-label {
-            font-size: 11px;
-            color: #cccccc;
-            margin-top: 4px;
-            font-weight: 500;
-        }
-
-        .expired .countdown-number {
-            color: #666666;
-        }
-
-        .no-events {
-            text-align: center;
-            color: #666666;
-            font-size: 14px;
-            padding: 40px 20px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>予定カウントダウン</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+        sans-serif;
+      background: #1a1a1a;
+      color: #fff;
+      padding: 24px;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 380px;
+      margin: 0 auto;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+    }
+    .title {
+      font-size: 18px;
+      font-weight: 500;
+      color: #fff;
+    }
+    .add-btn {
+      width: 28px;
+      height: 28px;
+      background: #000;
+      border: 1px solid #fff;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+    .add-btn:hover {
+      background: #333;
+      transform: scale(1.05);
+    }
+    .event {
+      background: #000;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 16px;
+      color: #fff;
+    }
+    .event-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .event-name-display {
+      font-size: 16px;
+      font-weight: 500;
+      color: #fff;
+    }
+    .delete-btn {
+      background: none;
+      border: none;
+      color: #666;
+      font-size: 14px;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+    .delete-btn:hover {
+      background: #333;
+      color: #fff;
+    }
+    .event-inputs {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .input-row {
+      display: grid;
+      grid-template-columns: 1fr 100px 70px;
+      gap: 8px;
+    }
+    .input {
+      background: #000;
+      border: 1px solid #333;
+      border-radius: 4px;
+      padding: 8px 12px;
+      font-size: 14px;
+      color: #fff;
+      transition: all 0.2s ease;
+    }
+    .input:focus {
+      outline: none;
+      border-color: #666;
+      background: #000;
+    }
+    .countdown {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      text-align: center;
+    }
+    .countdown-item {
+      padding: 12px 8px;
+      background: #000;
+      border: 1px solid #333;
+      border-radius: 6px;
+    }
+    .countdown-number {
+      font-size: 20px;
+      font-weight: 600;
+      color: #fff;
+      font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+    }
+    .countdown-label {
+      font-size: 11px;
+      color: #ccc;
+      margin-top: 4px;
+      font-weight: 500;
+    }
+    .expired .countdown-number {
+      color: #666;
+    }
+    .no-events {
+      text-align: center;
+      color: #666;
+      font-size: 14px;
+      padding: 40px 20px;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <div class="title">予定</div>
-            <button class="add-btn" onclick="addEvent()">+</button>
-        </div>
-        <div id="events-container"></div>
+  <div class="container">
+    <div class="header">
+      <div class="title">予定</div>
+      <button class="add-btn" onclick="addEvent()">+</button>
     </div>
+    <div id="events-container"></div>
+  </div>
 
-    <script>
-        let events = [];
+  <script>
+    let events = [];
 
-        function addEvent() {
-            if (events.length >= 5) {
-                alert('最大5つまでの予定を設定できます');
-                return;
-            }
-            
-            const now = new Date();
-            const tomorrow = new Date(now);
-            tomorrow.setDate(tomorrow.getDate() + 1);
-            
-            const newEvent = {
-                id: Date.now(),
-                name: "新しい予定",
-                date: tomorrow.toISOString().split('T')[0],
-                time: "09:00"
-            };
-            events.push(newEvent);
-            renderEvents();
-        }
+    // 予定を追加
+    function addEvent() {
+      if (events.length >= 5) {
+        alert('最大5つまでの予定を設定できます');
+        return;
+      }
 
-        function deleteEvent(id) {
-            events = events.filter(event => event.id !== id);
-            renderEvents();
-        }
+      const now = new Date();
+      const tomorrow = new Date(now);
+      tomorrow.setDate(tomorrow.getDate() + 1);
 
-        function updateEvent(id, field, value) {
-            const event = events.find(e => e.id === id);
-            if (event) {
-                event[field] = value;
-            }
-        }
+      const newEvent = {
+        id: Date.now(),
+        name: '新しい予定',
+        date: tomorrow.toISOString().split('T')[0],
+        time: '09:00',
+      };
+      events.push(newEvent);
+      renderEvents();
+    }
 
-        function calculateCountdown(targetDate) {
-            const now = new Date().getTime();
-            const target = new Date(targetDate).getTime();
-            const difference = target - now;
+    // 予定を削除
+    function deleteEvent(id) {
+      events = events.filter((event) => event.id !== id);
+      renderEvents();
+    }
 
-            if (difference <= 0) {
-                return { days: 0, hours: 0, minutes: 0, seconds: 0, expired: true };
-            }
+    // 予定情報を更新（oninputでリアルタイム反映）
+    function updateEvent(id, field, value) {
+      const event = events.find((e) => e.id === id);
+      if (event) {
+        event[field] = value;
+      }
+    }
 
-            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+    // カウントダウン計算
+    function calculateCountdown(targetDate) {
+      const now = new Date().getTime();
+      const target = new Date(targetDate).getTime();
+      const difference = target - now;
 
-            return { days, hours, minutes, seconds, expired: false };
-        }
+      if (difference <= 0) {
+        return { days: 0, hours: 0, minutes: 0, seconds: 0, expired: true };
+      }
 
-        function renderEvents() {
-            const container = document.getElementById('events-container');
-            
-            if (events.length === 0) {
-                container.innerHTML = '<div class="no-events">予定を追加してください</div>';
-                return;
-            }
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor(
+        (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-            container.innerHTML = '';
+      return { days, hours, minutes, seconds, expired: false };
+    }
 
-            events.forEach(event => {
-                const eventDiv = document.createElement('div');
-                eventDiv.className = 'event';
-                
-                const targetDateTime = `${event.date}T${event.time}:00`;
-                const countdown = calculateCountdown(targetDateTime);
-                
-                eventDiv.innerHTML = `
-                    <div class="event-header">
-                        <div class="event-name-display">${event.name}</div>
-                        <button class="delete-btn" onclick="deleteEvent(${event.id})">削除</button>
-                    </div>
-                    <div class="event-inputs">
-                        <input type="text" class="input" value="${event.name}" 
-                               onchange="updateEvent(${event.id}, 'name', this.value)" 
-                               placeholder="予定名">
-                        <div class="input-row">
-                            <input type="date" class="input" value="${event.date}" 
-                                   onchange="updateEvent(${event.id}, 'date', this.value)">
-                            <input type="time" class="input" value="${event.time}" 
-                                   onchange="updateEvent(${event.id}, 'time', this.value)">
-                        </div>
-                    </div>
-                    <div class="countdown ${countdown.expired ? 'expired' : ''}">
-                        <div class="countdown-item">
-                            <div class="countdown-number">${countdown.days.toString().padStart(2, '0')}</div>
-                            <div class="countdown-label">日</div>
-                        </div>
-                        <div class="countdown-item">
-                            <div class="countdown-number">${countdown.hours.toString().padStart(2, '0')}</div>
-                            <div class="countdown-label">時</div>
-                        </div>
-                        <div class="countdown-item">
-                            <div class="countdown-number">${countdown.minutes.toString().padStart(2, '0')}</div>
-                            <div class="countdown-label">分</div>
-                        </div>
-                        <div class="countdown-item">
-                            <div class="countdown-number">${countdown.seconds.toString().padStart(2, '0')}</div>
-                            <div class="countdown-label">秒</div>
-                        </div>
-                    </div>
-                `;
-                
-                container.appendChild(eventDiv);
-            });
-        }
+    // 予定を描画
+    function renderEvents() {
+      const container = document.getElementById('events-container');
 
-        function updateCountdowns() {
-            renderEvents();
-        }
+      if (events.length === 0) {
+        container.innerHTML = '<div class="no-events">予定を追加してください</div>';
+        return;
+      }
 
-        // 初期レンダリング
-        renderEvents();
+      container.innerHTML = '';
 
-        // 1秒ごとに更新
-        setInterval(updateCountdowns, 1000);
-    </script>
+      events.forEach((event) => {
+        const eventDiv = document.createElement('div');
+        eventDiv.className = 'event';
+        eventDiv.id = 'event-' + event.id;
+
+        const targetDateTime = `${event.date}T${event.time}:00`;
+        const countdown = calculateCountdown(targetDateTime);
+
+        eventDiv.innerHTML = `
+          <div class="event-header">
+            <div class="event-name-display">${escapeHTML(event.name)}</div>
+            <button class="delete-btn" onclick="deleteEvent(${event.id})">削除</button>
+          </div>
+          <div class="event-inputs">
+            <input type="text" class="input" value="${escapeHTML(event.name)}" 
+                   oninput="updateEvent(${event.id}, 'name', this.value)" 
+                   placeholder="予定名" autocomplete="off">
+            <div class="input-row">
+              <input type="date" class="input" value="${event.date}" 
+                     oninput="updateEvent(${event.id}, 'date', this.value)">
+              <input type="time" class="input" value="${event.time}" 
+                     oninput="updateEvent(${event.id}, 'time', this.value)">
+            </div>
+          </div>
+          <div class="countdown ${countdown.expired ? 'expired' : ''}">
+            <div class="countdown-item">
+              <div class="countdown-number">${countdown.days
+                .toString()
+                .padStart(2, '0')}</div>
+              <div class="countdown-label">日</div>
+            </div>
+            <div class="countdown-item">
+              <div class="countdown-number">${countdown.hours
+                .toString()
+                .padStart(2, '0')}</div>
+              <div class="countdown-label">時</div>
+            </div>
+            <div class="countdown-item">
+              <div class="countdown-number">${countdown.minutes
+                .toString()
+                .padStart(2, '0')}</div>
+              <div class="countdown-label">分</div>
+            </div>
+            <div class="countdown-item">
+              <div class="countdown-number">${countdown.seconds
+                .toString()
+                .padStart(2, '0')}</div>
+              <div class="countdown-label">秒</div>
+            </div>
+          </div>
+        `;
+
+        container.appendChild(eventDiv);
+      });
+    }
+
+    // カウントダウン数字だけを毎秒更新
+    function updateCountdowns() {
+      events.forEach((event) => {
+        const eventDiv = document.getElementById('event-' + event.id);
+        if (!eventDiv) return;
+
+        const countdown = calculateCountdown(`${event.date}T${event.time}:00`);
+
+        const countdownDiv = eventDiv.querySelector('.countdown');
+        countdownDiv.className = 'countdown' + (countdown.expired ? ' expired' : '');
+
+        const numbers = countdownDiv.querySelectorAll('.countdown-number');
+        numbers[0].textContent = countdown.days.toString().padStart(2, '0');
+        numbers[1].textContent = countdown.hours.toString().padStart(2, '0');
+        numbers[2].textContent = countdown.minutes.toString().padStart(2, '0');
+        numbers[3].textContent = countdown.seconds.toString().padStart(2, '0');
+      });
+    }
+
+    // XSS対策用に簡易エスケープ
+    function escapeHTML(str) {
+      if (!str) return '';
+      return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    // 初期レンダリング
+    renderEvents();
+
+    // 1秒ごとにカウントダウン数字だけ更新
+    setInterval(updateCountdowns, 1000);
+  </script>
 </body>
 </html>
